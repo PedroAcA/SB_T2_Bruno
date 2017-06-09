@@ -1,1 +1,1 @@
-# SB_T2_Bruno
+# Trabalho 2 da disciplina Software Básico (1/2017).

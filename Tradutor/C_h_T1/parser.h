@@ -1,0 +1,11 @@
+void verifica_linhas(FILE*);
+int classifica(char*);
+int existe_token(char* );
+int existe_rotulo(char *);
+int eh_numero(char );
+int existe_instrucao(char *);
+int existe_diretiva(char *);
+void busca_primeira_passagem(char*);
+void avalia_argumentos_section(char*);
+short int diretiva_space_primeira_passagem(char*,short int);
+short int diretiva_const_primeira_passagem(char*,short int);

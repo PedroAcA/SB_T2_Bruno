@@ -76,8 +76,6 @@ void traduz_instrucao(char* tok,char *linha){
         escreve_stop();
         ultima_sessao = TEXT;
     }
-
-
 }
 
 

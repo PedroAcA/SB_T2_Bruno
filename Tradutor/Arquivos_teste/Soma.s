@@ -10,4 +10,8 @@ jl prox
 mov eax, 1
 mov ebx, 0
 int 0x80
-n1: n2: r: 
+section .data
+n1   db   1
+n2   db   2
+section .bss
+r resb 1

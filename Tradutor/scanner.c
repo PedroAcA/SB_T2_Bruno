@@ -71,12 +71,12 @@ int classifica_pulo(char* token){
     }
 }
 int acessa_memoria(char* token){
-    char * operandos;
+   // char * operandos;
     // a ordem dos operandos eh: op1 => src (fonte) e op2 => dest (destino)
     if ( (strcmp(token,"copy") == strings_iguais) ){
-        operandos = prox_token();// pega o formato op1,op2;
-        op1 = strtok(operandos,",");// redivide a trsing dos operandos em tokens a partir da ','
-        op2 = strtok(NULL,",");// pega proximo operando apos a divisao em tokens de ','
+       // operandos = prox_token();// pega o formato op1,op2;
+        op1 = prox_token();// redivide a trsing dos operandos em tokens a partir da ','
+        op2 = prox_token();// pega proximo operando apos a divisao em tokens de ','
         return TRUE;
     }else if( ( strcmp(token,"load")== strings_iguais ) ){
         op1 = prox_token();
@@ -92,7 +92,7 @@ int acessa_memoria(char* token){
 }
 int section_data (char* linha_lida){
     char* pch;
-    
+
     if ((pch = strstr(linha_lida,": equ ")) != NULL){
         strncpy(pch,"  equ ",6);
         if (ultima_sessao == DATA){

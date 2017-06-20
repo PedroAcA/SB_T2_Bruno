@@ -3,21 +3,18 @@
 // inventado vao estar corretas
 void traduz_instrucao(char*);
 void pre_processa (FILE *);
+
 int main(int argc, char** argv){
    analisa_args_linha_comando(argc,argv);
    FILE* arq_asm = fopen(argv[1],"r");
    char *linha_lida,*tok;
    if(existe_arquivo(arq_asm)){
-		pre_processa(arq_asm);
+   	pre_processa(arq_asm);
    }else{
         printf("Arquivo %s nao encontrado. Por favor tente novamente.",argv[1]);
-
    }
-
    fclose(arq_asm);
-
    arq_asm = fopen("temp1.pre","r");
-
    if(existe_arquivo(arq_asm)){
         cria_arq_obj();
         while(!feof(arq_asm)){
@@ -33,20 +30,41 @@ int main(int argc, char** argv){
         fclose(arq_asm);
    }else{
         printf("Falha no pre processamento. Por favor tente novamente.");
-
    }
-
-
 }
 void traduz_instrucao(char* tok){
-    //Observacao: se for trabalhar com o arquivo asm em caixa baixa,
-    //colcoar o nome das instrcoes em caixa baixa
-    if(strcmp(tok,"add") == strings_iguais){
-        escreve_relacao_direta(tok);
-    }else if(strcmp(tok,"sub") == strings_iguais){
-        escreve_relacao_direta(tok);
+    //Observacao: adicionar a traducao das funcoes de input e output
+    if(eh_rotulo(tok)){
+        //tok = elimina_caracter(tok,":");
+        escreve_rotulo(tok);
+        tok = prox_token();
+    }
+    if(eh_aritmetico(tok)){
+        escreve_op_aritmetica(tok);
+    }else if(classifica_pulo(tok)){
+        if(tipo_pulo ==  JMP){
+            escreve_pulo_incondicional(prox_token());
+        }else{
+            escrve_cmp();
+            switch(tipo_pulo){
+                case JMPP:
+                    escreve_pulo_p(prox_token());
+                    break;
+                case JMPN:
+                    escreve_pulo_n(prox_token());
+                    break;
+                case JMPZ:
+                    escreve_pulo_z(prox_token());
+            }
+        }
+    }else if(acessa_memoria(tok)){
+        escreve_memoria(op1,op2);
+    }else if ( strcmp(tok,"stop")==strings_iguais ){//stop
+        escreve_stop();
     }
 }
+
+
 
 void pre_processa (FILE * arq){
     FILE *pre = fopen("temp1.pre","w") ;

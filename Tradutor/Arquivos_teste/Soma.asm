@@ -1,0 +1,13 @@
+;Programa soma dois numeros
+SECTION TEXT
+COPY N1,R
+LOAD N2
+Prox: ADD R
+STORE R
+JMPN Prox
+STOP
+ 
+SECTION DATA
+N1: CONST 1
+N2: CONST 2
+R: SPACE

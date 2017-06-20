@@ -6,4 +6,8 @@ int tam_string(char *);
 int tem_char(char *,char);
 char* divide_tokens(char *);
 char* le_linha(FILE *);
+int eh_rotulo(char *);
 char* elimina_caracter(char* str, char* c);
+int eh_aritmetico(char*);
+int classifica_pulo(char*);
+int acessa_memoria(char*);

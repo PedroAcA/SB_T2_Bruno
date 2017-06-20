@@ -36,6 +36,9 @@ char* le_linha(FILE * arq){
         linha[i] = '\0';
         return linha;
 }
+int eh_rotulo(char * tok){
+    return (strstr (tok,":") != NULL);
+}
 char* elimina_caracter(char* str, char* c){//eleimina somente a primeira ocorrencia do caracter na string
      char* elimina;//usado para substituir o caracter , para um espaco quando ha copy
      elimina= strstr (str,c);//aponta para o endereco de tok que contem ,
@@ -43,4 +46,47 @@ char* elimina_caracter(char* str, char* c){//eleimina somente a primeira ocorren
             strncpy(elimina," ",1);
         }
     return str;
+}
+
+int eh_aritmetico(char* token){
+    return ( (strcmp(token,"add") == strings_iguais) || ( strcmp(token,"sub")== strings_iguais ) ||
+             ( strcmp(token,"mult") ==strings_iguais ) || ( strcmp(token,"div")==strings_iguais )
+           );
+}
+int classifica_pulo(char* token){
+    if (strcmp(token,"jmp") == strings_iguais){
+        tipo_pulo = JMP;
+        return TRUE;
+    }else if( strcmp(token,"jmpp")== strings_iguais ){
+        tipo_pulo= JMPP;
+        return TRUE;
+    }else if( strcmp(token,"jmpn") == strings_iguais ){
+        tipo_pulo =  JMPN;
+        return  TRUE;
+    }else if( strcmp(token,"jmpz")== strings_iguais ){
+        tipo_pulo = JMPZ;
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+int acessa_memoria(char* token){
+    char * operandos;
+    // a ordem dos operandos eh: op1 => src (fonte) e op2 => dest (destino)
+    if ( (strcmp(token,"copy") == strings_iguais) ){
+        operandos = prox_token();// pega o formato op1,op2;
+        op1 = strtok(operandos,",");// redivide a trsing dos operandos em tokens a partir da ','
+        op2 = strtok(NULL,",");// pega proximo operando apos a divisao em tokens de ','
+        return TRUE;
+    }else if( ( strcmp(token,"load")== strings_iguais ) ){
+        op1 = prox_token();
+        op2 = "eax";
+        return TRUE;
+    }else if( ( strcmp(token,"store")==strings_iguais ) ){
+        op1 = "eax";
+        op2 = prox_token();
+        return TRUE;
+    }else{
+        return FALSE;
+    }
 }

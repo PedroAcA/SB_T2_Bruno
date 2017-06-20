@@ -61,10 +61,47 @@ FILE* abre_arq_entrada(){// abre para o modo leitura
 void cria_arq_obj(){
     obj = fopen(nome_obj,"w+");
 }
-// traduz as funcoes de assembly inventado que tem 1 operando para IA-32
-void escreve_relacao_direta(char*tok){
-    fprintf(obj,"%s EAX, %s\n",tok,prox_token());
+void escreve_rotulo(char *token){
+    fprintf(obj,"%s ",token);
 }
+// funcao escreve_op_aritmetica traduz as funcoes de assembly inventado que sao aritmeticas para IA-32
+void escreve_op_aritmetica(char*tok){
+    fprintf(obj,"%s eax, dword[%s]\n",tok,prox_token());
+}
+void escreve_pulo_incondicional(char* token){
+    fprintf(obj,"jmp %s\n",token);
+}
+void escrve_cmp(){
+    fprintf(obj,"cmp eax,0\n");
+}
+void escreve_pulo_p(char* token){
+    fprintf(obj,"jg %s\n",token);
+}
+void escreve_pulo_n(char* token){
+    fprintf(obj,"jl %s\n",token);
+}
+void escreve_pulo_z(char* token){
+    fprintf(obj,"je %s\n",token);
+}
+void escreve_memoria(char* src,char* dest){
+//mov dest,src
+    if( strcmp(src,"eax") == strings_iguais ){
+        fprintf(obj,"mov dword[%s], eax\n",dest);
+    }else if(strcmp(dest,"eax") == strings_iguais ){
+        fprintf(obj,"mov eax, dword[%s]\n",src);
+    }else{// operacao memoria memoria
+        fprintf(obj,"push eax\n");
+        fprintf(obj,"mov eax, dword[%s]\n",src);
+        fprintf(obj,"mov dword[%s], eax\n",dest);
+        fprintf(obj,"pop eax\n");
+    }
+}
+void escreve_stop(){
+    fprintf(obj,"mov eax, 1\n");
+    fprintf(obj,"mov ebx, 0\n");
+    fprintf(obj,"int 0x80\n");
+}
+
 void exclui_arq_obj(){
     if(obj!=NULL){
         remove(nome_obj);

@@ -1,0 +1,18 @@
+Como a traducao das funcoes input e output ainda nao foram feitas, o resultado a exibir foi inserido na saida do programa asm (alterando as seguintes linhas do arquivo .s):
+De:	
+	mov eax, 1
+	mov ebx, 0
+	int 0x80
+Para:
+	mov ebx, eax
+	mov eax, 1
+	;mov ebx, 0
+	int 0x80
+A secao de dados foi manualmente declarada como:
+	section .data
+	n1 DD 0
+	n2 DD 2 
+	r DD 0 
+
+
+

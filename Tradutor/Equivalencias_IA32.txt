@@ -1,0 +1,13 @@
+EQUIVALÊNCIAS Assemvbly inventado para IA-32:
+	-> ADD,SUB,MULT DIV : Operacao EAX, [Operando]
+	-> JMP : jmp (so copiar)
+	-> JMPP : cmp EAX, 0
+		  jg label
+	-> JMPN : cmp EAX, 0 
+		  JL label
+	-> JMPZ : cmp EAX, 0
+		  je label
+	-> COPY : mov [op2], [op1];
+	-> LOAD : mov EAX, [op]
+	-> STORE : mov [op], EAX
+

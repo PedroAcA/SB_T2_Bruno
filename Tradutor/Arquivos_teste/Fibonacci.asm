@@ -1,3 +1,4 @@
+;Acho que esse fibonacci ta errado (nao deu para copiar o exemplo do slide do bruno direito)
 SECTION TEXT
 COPY ZERO,OLDER
 COPY ONE,OLD
@@ -18,8 +19,8 @@ SUB ONE
 STOP
 
 SECTION DATA
-ZERO: CONST
-ONE: CONST
+ZERO: CONST 0
+ONE: CONST 1
 OLDER: SPACE
 OLD: SPACE
 NEW: SPACE

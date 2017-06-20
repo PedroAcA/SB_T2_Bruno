@@ -102,6 +102,18 @@ void escreve_stop(){
     fprintf(obj,"int 0x80\n");
 }
 
+void escreve_data(char* linha_lida){
+    fprintf(obj,"section .data\n%s\n",linha_lida);
+}
+
+void escreve_bss(char* linha_lida){
+    fprintf(obj,"section .bss\n%s\n",linha_lida);
+}
+
+void escreve(char* linha_lida){
+    fprintf(obj,"%s\n",linha_lida);
+}
+
 void exclui_arq_obj(){
     if(obj!=NULL){
         remove(nome_obj);

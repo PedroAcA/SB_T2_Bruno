@@ -7,12 +7,12 @@ char * proxima_linha(FILE * arq){//assume que o arquivo ja esta aberto
 /*funcao divide_tokens espera que o arquivo ja tenha sido pre-processado
 e que os comentarios tenham sido retirados*/
 char* divide_tokens(char *linha){
-    return strtok(linha," ");//subvide a string em tokens
+    return strtok(linha," ,");//subvide a string em tokens
 
 }
 // funcao prox_token espera que a palavra ja tenha sido dividida em tokens!
 char* prox_token(){
-    return strtok(NULL," ");
+    return strtok(NULL," ,");
 }
 /*tam_string retorna o numero de elementos em uma string (sem incluir o \0)*/
 int tam_string(char* str){
@@ -89,4 +89,56 @@ int acessa_memoria(char* token){
     }else{
         return FALSE;
     }
+}
+int section_data (char* linha_lida){
+    char* pch;
+    
+    if ((pch = strstr(linha_lida,": equ ")) != NULL){
+        strncpy(pch,"  equ ",6);
+        if (ultima_sessao == DATA){
+            escreve(linha_lida);
+        }
+        else{
+            escreve_data(linha_lida);
+        }
+        ultima_sessao = DATA;
+        return TRUE;
+    }
+    else if( (pch = strstr(linha_lida,": const ")) != NULL){
+        strncpy(pch,"   db   ",8);
+        if (ultima_sessao == DATA){
+            escreve(linha_lida);
+        }
+        else{
+            escreve_data(linha_lida);
+        }
+        ultima_sessao = DATA;
+        return TRUE;
+    }
+    else if((pch = strstr(linha_lida,": space") )!= NULL){
+        if(!eh_vetor(linha_lida))
+            strncpy(pch," resb 1",7);
+        else
+            strncpy(pch,"   resb",7);
+
+        if (ultima_sessao == BSS){
+            escreve(linha_lida);
+        }
+        else{
+            escreve_bss(linha_lida);
+        }
+        ultima_sessao = BSS;
+        return TRUE;
+    }
+        return FALSE;
+}
+
+int eh_vetor(char* linha){
+    //printf("Na linha %s o valor da ultimo foi: %d e do penultimo foi: %d\n",linha, );
+
+    if( ((linha[strlen(linha)-1] > 47) && (linha[strlen(linha)-1] < 58)) ||
+        ((linha[strlen(linha)-2] > 47) && (linha[strlen(linha)-2] < 58)) )
+        return 1;
+    else
+        return 0;
 }

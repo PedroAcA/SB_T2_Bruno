@@ -11,3 +11,8 @@ char* elimina_caracter(char* str, char* c);
 int eh_aritmetico(char*);
 int classifica_pulo(char*);
 int acessa_memoria(char*);
+int section_data (char*);
+int eh_vetor(char*);
+void escreve(char*);
+void escreve_data(char*);
+void escreve_bss(char*);

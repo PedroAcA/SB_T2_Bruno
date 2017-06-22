@@ -5,7 +5,7 @@ projeto:
 
 #$(addprefix Tradutor/, $(SOURCES_TRADUTOR)) concatena  Tradutor/ e distribui esse diretorio para todos .c presentes em SOURCES_TRADUTOR
 traduzir: $(addprefix Tradutor/,$(SOURCES_TRADUTOR))
-	@cd Tradutor && echo "\nAbrindo pasta Tradutor\n" && gcc -Wall -o tradutor $(SOURCES_TRADUTOR) -I. && gcc -Wall -o ../tradutor $(SOURCES_TRADUTOR) -I.
+	@cd Tradutor && echo "\nAbrindo pasta Tradutor\n" && gcc -Wall -o tradut $(SOURCES_TRADUTOR) -I. && gcc -Wall -o ../tradut $(SOURCES_TRADUTOR) -I.
 
 #$(addprefix /, $(SOURCES_IA_32)) concatena o diretorio / e distribui esse diretorio para todos .c presentes em SOURCES_IA_32
 #IA_32: $(addprefix /,$(SOURCES_IA_32)) 

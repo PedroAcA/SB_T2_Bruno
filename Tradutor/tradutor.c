@@ -18,6 +18,7 @@ int main(int argc, char** argv){
    ultima_sessao = INDEFINIDO;
    if(existe_arquivo(arq_asm)){
         cria_arq_obj();
+
         while(!feof(arq_asm)){
             linha_lida = proxima_linha(arq_asm);
             strcpy(linha,linha_lida);
@@ -29,6 +30,9 @@ int main(int argc, char** argv){
 
             free(linha_lida);
         }
+
+        imprime_funcoes();
+        
         fecha_arq_obj();
         libera_nome_arquivos();
         fclose(arq_asm);
@@ -44,7 +48,7 @@ int main(int argc, char** argv){
 
 void traduz_instrucao(char* tok,char *linha){
     //Observacao: adicionar a traducao das funcoes de input e output
-    if(!section_data(linha) && eh_rotulo(tok)){
+    if(!section(linha) && eh_rotulo(tok)){
         //tok = elimina_caracter(tok,":");
         escreve_rotulo(tok);
         tok = prox_token();

@@ -90,10 +90,14 @@ int acessa_memoria(char* token){
         return FALSE;
     }
 }
-int section_data (char* linha_lida){
+int section (char* linha_lida){
     char* pch;
 
-    if ((pch = strstr(linha_lida,": equ ")) != NULL){
+    
+    if ((pch = strstr(linha_lida,"section text")) != NULL){
+        escreve_inicio();
+    }
+    else if ((pch = strstr(linha_lida,": equ ")) != NULL){
         strncpy(pch,"  equ ",6);
         if (ultima_sessao == DATA){
             escreve(linha_lida);

@@ -1,18 +1,14 @@
 section .data
 msg     db      'Digitos invalidos', 0AH
 len     equ     $-msg
-numero db 'ffffffff',0ah
 resultado dd 0
-size db 10
 flag db 0
 
  
 
 section .bss
-digitado resb 1
 quociente resb 4
 string resb 12
-n1 resb 4
 
 
 global _start
@@ -28,7 +24,6 @@ _start:
 LerChar:
 	mov	eax, 3 ; ler
 	mov	ebx, 1 ; teclado
-	;mov	ecx, digitado
 	mov	edx, 1
 	int	0x80   ; ler(teclado, digitado, 1byte);
 
@@ -37,21 +32,17 @@ LerChar:
 EscreverChar:
 	mov	eax, 4 ; escrever
 	mov	ebx, 1 ; monitor
-	;mov	ecx, digitado
 	mov	edx, 1
 	int	0x80   ; escrever(monitor, digitado, 1byte);
 	
 	ret
 	
 EscreverHexa:
-	;mov dword ecx, [resultado]
 	push byte 0
 	push byte 0ah
 	inicio1:
-	;divide por 16
 	mov eax, ecx
 	shr eax,4
-	;pega o resto da divisão em edx
 	mov dword edx, 0x0000000F
 	and edx, ecx	
 	
@@ -131,7 +122,6 @@ EscreverInteiro:
 	mov dword [flag],0
 	push byte 0 ;empilha 0 para indicar o final da string
 	push byte 0ah
-	;mov dword ecx, [resultado] ; coloca o numero a ser impresso em ecx
 	cmp ecx, 0 ;ve se o numero é maior que 0
 	jge inicio3 ; se for, nao faz nada
 	;se nao for, empilha o '-' e converte pra positivo
@@ -234,8 +224,6 @@ retorna:
 LerString:
 	mov	eax, 3 ; ler
 	mov	ebx, 1 ; teclado
-	;mov	ecx, string
-	;mov	edx, size
 	int	0x80   ; ler(teclado, string, size bytes);
 	
 	ret
@@ -243,8 +231,6 @@ LerString:
 EscreverString:
 	mov	eax, 4 ; escrever
 	mov	ebx, 1 ; monitor
-	;mov	ecx, string
-	;mov	edx, size
 	int	0x80   ; escrever(monitor, string, size bytes);
 	
 	ret

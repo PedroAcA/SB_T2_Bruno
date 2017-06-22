@@ -14,8 +14,10 @@ void escreve_pulo_p(char*);
 void escreve_pulo_n(char*);
 void escreve_pulo_z(char*);
 void escreve_memoria(char*,char*);
+void escreve_input(char*,char*,char);
+void escreve_output(char*,char*,char);
 void escreve_stop();
-
+void imprime_funcoes();
 void exclui_arq_obj();
 void libera_nome_arquivos();
 void fecha_arq_obj();

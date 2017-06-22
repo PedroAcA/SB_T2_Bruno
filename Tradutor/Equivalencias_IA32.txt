@@ -11,3 +11,49 @@ EQUIVALÊNCIAS Assemvbly inventado para IA-32:
 	-> LOAD : mov EAX, [op]
 	-> STORE : mov [op], EAX
 
+
+s_input arg1,arg2 -> 	pusha
+			mov ecx,-->arg1<--
+			mov edx,-->arg2<--
+			call LerString
+			popa
+
+s_output arg1,arg2->	pusha
+			mov ecx,-->arg1<--
+			mov edx,-->arg2<--
+			call EscreverString
+			popa
+
+input arg1 -> 		pusha
+			mov ecx,string
+			mov edx,12
+			call LerInteiro
+			mov dword [-->arg1<--],edx
+			popa
+
+output arg1 ->		pusha
+			mov ecx,[-->arg1<--]
+			call EscreverInteiro
+			popa
+
+h_input arg1 ->		pusha
+			mov ecx,string
+			mov edx,9
+			call LerHexa
+			mov dword [-->arg1<--],edx
+			popa
+
+h_output arg1 ->	pusha
+			mov ecx,[-->arg1<--]
+			call EscreverHexa
+			popa
+
+c_input arg1 ->		pusha
+			mov ecx,-->arg1<--
+			call LerChar
+			popa
+
+c_output arg1 ->	pusha
+			mov ecx,-->arg1<--
+			call EscreverChar
+			popa

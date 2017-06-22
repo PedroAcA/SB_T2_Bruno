@@ -1,13 +1,18 @@
 section .data
+msg     db      'Digitos invalidos', 0AH
+len     equ     $-msg
 numero db 'ffffffff',0ah
 resultado dd 0
 size db 10
 flag db 0
 
+ 
+
 section .bss
 digitado resb 1
 quociente resb 4
-string resb 100
+string resb 12
+n1 resb 4
 
 
 global _start
@@ -15,21 +20,6 @@ global _start
 section .text
 _start:	
 
-	;call LerHexa
-	
-	call LerInteiro
-	
-	;call LerString
-	
-	;call EscreverHexa
-	
-	call EscreverInteiro
-	
-	;call LerChar
-	
-	;call EscreverChar
-	
-	;call EscreverString
 	
 	mov	eax, 1 ; return
 	mov	ebx, 0
@@ -38,7 +28,7 @@ _start:
 LerChar:
 	mov	eax, 3 ; ler
 	mov	ebx, 1 ; teclado
-	mov	ecx, digitado
+	;mov	ecx, digitado
 	mov	edx, 1
 	int	0x80   ; ler(teclado, digitado, 1byte);
 
@@ -47,15 +37,16 @@ LerChar:
 EscreverChar:
 	mov	eax, 4 ; escrever
 	mov	ebx, 1 ; monitor
-	mov	ecx, digitado
+	;mov	ecx, digitado
 	mov	edx, 1
 	int	0x80   ; escrever(monitor, digitado, 1byte);
 	
 	ret
 	
 EscreverHexa:
-	mov dword ecx, [resultado]
+	;mov dword ecx, [resultado]
 	push byte 0
+	push byte 0ah
 	inicio1:
 	;divide por 16
 	mov eax, ecx
@@ -66,7 +57,7 @@ EscreverHexa:
 	
 	cmp edx,09h; verifica qual é o digito
 	jbe numero0a9
-	add edx, 0x57;converte o resto em ascii
+	add edx, 0x37;converte o resto em ascii
 	jmp continua
 	
 numero0a9:
@@ -108,10 +99,18 @@ inicio2:
 	mov al, [ecx] ;pega um digito
 	cmp al, 0ah ;se for \n
 	je fim2 ; vai pro fim
-	;se não
+	;se não, verifica se eh um digito valido
+	cmp al, 2fh
+	jbe erro_fim
 	cmp al,3ah; verifica qual é o digito
 	jbe numero0a92
-	sub al, 0x57;se for letra, converte em int
+	cmp al,40h
+	jbe erro_fim
+	cmp al, 46h
+	jbe eh_letra
+	jmp erro_fim
+eh_letra:
+	sub al, 0x37;se for letra, converte em int
 	jmp continua2
 numero0a92:
 	sub al, 0x30 ; se for numero, converte em int
@@ -125,15 +124,16 @@ continua2:
 	jmp inicio2
 
 fim2:
-	mov eax, [edx] ;retorna o resultado em eax
+	mov edx, [edx] ;retorna o resultado em eax
 	ret
 
 EscreverInteiro:
 	mov dword [flag],0
 	push byte 0 ;empilha 0 para indicar o final da string
-	mov dword ecx, [resultado] ; coloca o numero a ser impresso em ecx
+	push byte 0ah
+	;mov dword ecx, [resultado] ; coloca o numero a ser impresso em ecx
 	cmp ecx, 0 ;ve se o numero é maior que 0
-	jg inicio3 ; se for, nao faz nada
+	jge inicio3 ; se for, nao faz nada
 	;se nao for, empilha o '-' e converte pra positivo
 	mov dword [flag],1
 	neg ecx
@@ -204,6 +204,12 @@ inicio4:
 	cmp al, 0ah ;se for \n
 	je fim4 ; vai pro fim
 	sub al, 0x30 ; se não, converte em int
+	;rotina que define se o digito é valido ou não
+	cmp al,0
+	jl erro_fim
+	cmp al,10
+	jg erro_fim
+	
 	mov ebx, eax ; salva em ebx
 	;multiplica o resultado por 10
 	mov dword eax, [edx]
@@ -222,14 +228,14 @@ fim4:
 	neg dword [edx]
 	
 retorna:
-	mov eax, [edx] ;retorna o resultado em eax
+	mov edx, [edx] ;retorna o resultado em eax
 	ret
 	
 LerString:
 	mov	eax, 3 ; ler
 	mov	ebx, 1 ; teclado
-	mov	ecx, string
-	mov	edx, size
+	;mov	ecx, string
+	;mov	edx, size
 	int	0x80   ; ler(teclado, string, size bytes);
 	
 	ret
@@ -237,8 +243,19 @@ LerString:
 EscreverString:
 	mov	eax, 4 ; escrever
 	mov	ebx, 1 ; monitor
-	mov	ecx, string
-	mov	edx, size
+	;mov	ecx, string
+	;mov	edx, size
 	int	0x80   ; escrever(monitor, string, size bytes);
 	
 	ret
+	
+erro_fim:
+	mov     edx, len
+        mov     ecx, msg
+        mov     ebx, 1
+        mov     eax, 4
+        int     80h
+ 
+        mov     ebx, 0
+        mov     eax, 1
+        int     80h

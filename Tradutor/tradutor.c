@@ -32,7 +32,7 @@ int main(int argc, char** argv){
         }
 
         imprime_funcoes();
-        
+
         fecha_arq_obj();
         libera_nome_arquivos();
         fclose(arq_asm);
@@ -76,6 +76,10 @@ void traduz_instrucao(char* tok,char *linha){
     }else if(acessa_memoria(tok)){
         escreve_memoria(op1,op2);
         ultima_sessao = TEXT;
+    }else if(eh_input(tok)){
+        escreve_input(op1,op2,tipo_in_out);
+    }else if(eh_output(tok)){
+        escreve_output(op1,op2,tipo_in_out);
     }else if ( strcmp(tok,"stop")==strings_iguais ){//stop
         escreve_stop();
         ultima_sessao = TEXT;

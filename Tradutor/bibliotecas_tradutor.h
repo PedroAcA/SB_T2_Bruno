@@ -17,4 +17,7 @@
 #define TEXT 0
 int tipo_pulo;
 char *op1,*op2;// usados para instrucoes de copy, store e load
+char tipo_in_out;/*contem a a informacao se eh o input ou output
+eh decimal ('d'),caracter ('c'), string ('s'), hexa ('h') ou nenhuma das
+anteriores ('\0')*/
 int ultima_sessao;

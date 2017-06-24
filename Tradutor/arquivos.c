@@ -84,7 +84,6 @@ void escreve_pulo_z(char* token){
     fprintf(obj,"je %s\n",token);
 }
 void escreve_memoria(char* src,char* dest){
-//mov dest,src
     if( strcmp(src,"eax") == strings_iguais ){
         fprintf(obj,"mov dword[%s], eax\n",dest);
     }else if(strcmp(dest,"eax") == strings_iguais ){

@@ -47,12 +47,74 @@ char* elimina_caracter(char* str, char* c){//eleimina somente a primeira ocorren
         }
     return str;
 }
-
 int eh_aritmetico(char* token){
     return ( (strcmp(token,"add") == strings_iguais) || ( strcmp(token,"sub")== strings_iguais ) ||
              ( strcmp(token,"mult") ==strings_iguais ) || ( strcmp(token,"div")==strings_iguais )
            );
 }
+int eh_input(char* token){// checa se eh uma das instrucoes de input e,se for, atualiza o tipo dela e retorna true. Se nao, o tipo se torna '\0' e retorna false
+    /*Instrucoes de input a serem traduzidas:
+        -> input (pega inteiros)
+        -> c_input (pega caracteres)
+        -> h_input (pega hexadecimais)
+        -> s_input (pega strings) (unica que recebe 2 argumentos)
+    */
+    if(strcmp(token,"input")==strings_iguais){
+        op1 = prox_token();
+        op2 = NULL;
+        tipo_in_out = 'd';
+        return TRUE;
+    }else if(strcmp(token,"c_input")==strings_iguais){
+        op1 = prox_token();
+        op2 = NULL;
+        tipo_in_out = 'c';
+        return TRUE;
+    }else if(strcmp(token,"h_input")==strings_iguais){
+        op1 = prox_token();
+        op2 = NULL;
+        tipo_in_out = 'h';
+        return TRUE;
+    }else if(strcmp(token,"s_input")==strings_iguais){
+        op1 = prox_token();
+        op2 = prox_token();
+        tipo_in_out = 's';
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+int eh_output(char* token){// checa se eh uma das instrucoes de output e,se for, atualiza o tipo dela e retorna true. Se nao, o tipo se torna '\0' e retorna false
+   /*Instrucoes de input a serem traduzidas:
+        -> output (pega inteiros)
+        -> c_output (pega caracteres)
+        -> h_output (pega hexadecimais)
+        -> s_output (pega strings) (unica que recebe 2 argumentos)
+    */
+        if(strcmp(token,"output")==strings_iguais){
+        op1 = prox_token();
+        op2 = NULL;
+        tipo_in_out = 'd';
+        return TRUE;
+    }else if(strcmp(token,"c_output")==strings_iguais){
+        op1 = prox_token();
+        op2 = NULL;
+        tipo_in_out = 'c';
+        return TRUE;
+    }else if(strcmp(token,"h_output")==strings_iguais){
+        op1 = prox_token();
+        op2 = NULL;
+        tipo_in_out = 'h';
+        return TRUE;
+    }else if(strcmp(token,"s_output")==strings_iguais){
+        op1 = prox_token();
+        op2 = prox_token();
+        tipo_in_out = 's';
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
 int classifica_pulo(char* token){
     if (strcmp(token,"jmp") == strings_iguais){
         tipo_pulo = JMP;
@@ -71,12 +133,10 @@ int classifica_pulo(char* token){
     }
 }
 int acessa_memoria(char* token){
-   // char * operandos;
     // a ordem dos operandos eh: op1 => src (fonte) e op2 => dest (destino)
     if ( (strcmp(token,"copy") == strings_iguais) ){
-       // operandos = prox_token();// pega o formato op1,op2;
-        op1 = prox_token();// redivide a trsing dos operandos em tokens a partir da ','
-        op2 = prox_token();// pega proximo operando apos a divisao em tokens de ','
+        op1 = prox_token();
+        op2 = prox_token();
         return TRUE;
     }else if( ( strcmp(token,"load")== strings_iguais ) ){
         op1 = prox_token();
@@ -93,7 +153,7 @@ int acessa_memoria(char* token){
 int section (char* linha_lida){
     char* pch;
 
-    
+
     if ((pch = strstr(linha_lida,"section text")) != NULL){
         escreve_inicio();
     }

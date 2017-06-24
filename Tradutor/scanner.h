@@ -9,6 +9,8 @@ char* le_linha(FILE *);
 int eh_rotulo(char *);
 char* elimina_caracter(char* str, char* c);
 int eh_aritmetico(char*);
+int eh_input(char *);
+int eh_output(char *);
 int classifica_pulo(char*);
 int acessa_memoria(char*);
 int section (char*);

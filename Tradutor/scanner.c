@@ -169,7 +169,7 @@ int section (char* linha_lida){
         return TRUE;
     }
     else if( (pch = strstr(linha_lida,": const ")) != NULL){
-        strncpy(pch,"   db   ",8);
+        strncpy(pch,"   dd   ",8);
         if (ultima_sessao == DATA){
             escreve(linha_lida);
         }

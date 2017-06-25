@@ -66,7 +66,14 @@ void escreve_rotulo(char *token){
 }
 // funcao escreve_op_aritmetica traduz as funcoes de assembly inventado que sao aritmeticas para IA-32
 void escreve_op_aritmetica(char*tok){
-    fprintf(obj,"%s eax, dword[%s]\n",tok,prox_token());
+    if(strcmp(tok,"div")!=strings_iguais && strcmp(tok,"mult")!=strings_iguais)// mul e div podem ser feitos somente como imul m32 e idiv m32
+        fprintf(obj,"%s eax, dword[%s]\n",tok,prox_token());
+    else if(strcmp(tok,"div")!=strings_iguais)// para divisao, eh necessario fazer a extensao de sinal para o edx
+        fprintf(obj,"imul dword[%s]\n",prox_token());
+    else{
+        fprintf(obj,"cdq\n");
+        fprintf(obj,"idiv dword[%s]\n",prox_token());
+    }
 }
 void escreve_pulo_incondicional(char* token){
     fprintf(obj,"jmp %s\n",token);

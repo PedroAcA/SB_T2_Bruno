@@ -3,23 +3,8 @@ msg     db      'Digitos invalidos', 0AH
 len     equ     $-msg
 resultado dd 0
 flag db 0
-
- 
-
-section .bss
-quociente resb 4
-string resb 12
-
-
-global _start
-
-section .text
-_start:	
-
-	
-	mov	eax, 1 ; return
-	mov	ebx, 0
-	int	0x80   ; return(0)
+quociente db '0000'
+string db '000000000000'
 	
 LerChar:
 	mov	eax, 3 ; ler

@@ -64,6 +64,13 @@ void cria_arq_obj(){
 void escreve_rotulo(char *token){
     fprintf(obj,"%s ",token);
 }
+void escreve_if(char *tok){
+    fprintf(obj,"%%ifn %s=0\n",prox_token());
+}
+void escreve_fecha_if(){
+    fprintf(obj,"%%endif\n");
+}
+
 // funcao escreve_op_aritmetica traduz as funcoes de assembly inventado que sao aritmeticas para IA-32
 void escreve_op_aritmetica(char*tok){
     if(strcmp(tok,"div")!=strings_iguais && strcmp(tok,"mult")!=strings_iguais)// mul e div podem ser feitos somente como imul m32 e idiv m32

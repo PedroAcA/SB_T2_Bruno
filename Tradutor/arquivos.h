@@ -7,6 +7,8 @@ int existe_arquivo(FILE*);
 void retira_extensao(char*,char*);
 void cria_arq_obj();
 void escreve_rotulo(char *);
+void escreve_if(char*);
+void escreve_fecha_if();
 void escreve_op_aritmetica(char*);
 void escreve_pulo_incondicional(char*);
 void escrve_cmp();

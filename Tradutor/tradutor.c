@@ -3,7 +3,6 @@
 // inventado vao estar corretas
 void traduz_instrucao(char*,char*);
 void pre_processa (FILE *);
-
 int main(int argc, char** argv){
    analisa_args_linha_comando(argc,argv);
    FILE* arq_asm = fopen(argv[1],"r");
@@ -18,13 +17,17 @@ int main(int argc, char** argv){
    ultima_sessao = INDEFINIDO;
    if(existe_arquivo(arq_asm)){
         cria_arq_obj();
-
+        linha_if = -1;
+        if_aberto =FALSE;
         while(!feof(arq_asm)){
             linha_lida = proxima_linha(arq_asm);
             strcpy(linha,linha_lida);
             //printf("Linha: %s\n",linha_lida);
             tok = divide_tokens(linha_lida);
             //printf("Linha: %s\n",linha);
+            if(linha_if>=0)// vai assumir os valores 0 ou 1 caso esteja processando IF ou -1 caso nao esteja
+                    linha_if--;
+
             if(tok!=NULL)
                 traduz_instrucao(tok,linha);
 
@@ -53,7 +56,15 @@ void traduz_instrucao(char* tok,char *linha){
         escreve_rotulo(tok);
         tok = prox_token();
     }
-    if(eh_aritmetico(tok)){
+    if(if_aberto==TRUE && linha_if==-1){// a linha do if ja foi escrita e o %ifn ainda nao foi fechado
+        escreve_fecha_if();
+        if_aberto = FALSE;
+    }
+    if(eh_if(tok)){// vai traduzir a diretiva de pre-processamento IF
+        escreve_if(tok);
+        if_aberto = TRUE;
+        linha_if = 1;// no assembly inventado, if so afeta uma linha
+    }else if(eh_aritmetico(tok)){
         escreve_op_aritmetica(tok);
         ultima_sessao = TEXT;
     }else if(classifica_pulo(tok)){
@@ -85,8 +96,6 @@ void traduz_instrucao(char* tok,char *linha){
         ultima_sessao = TEXT;
     }
 }
-
-
 
 void pre_processa (FILE * arq){
     FILE *pre = fopen("temp1.pre","w") ;

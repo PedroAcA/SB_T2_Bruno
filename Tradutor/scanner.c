@@ -47,6 +47,9 @@ char* elimina_caracter(char* str, char* c){//eleimina somente a primeira ocorren
         }
     return str;
 }
+int eh_if(char *tok){
+    return (strcmp(tok,"if")==strings_iguais);
+}
 int eh_aritmetico(char* token){
     return ( (strcmp(token,"add") == strings_iguais) || ( strcmp(token,"sub")== strings_iguais ) ||
              ( strcmp(token,"mult") ==strings_iguais ) || ( strcmp(token,"div")==strings_iguais )

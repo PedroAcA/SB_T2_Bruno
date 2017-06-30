@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1498786818 source:/home/paca/SB_T2_Bruno/Tradutor/arquivos.c
+	"bibliotecas_tradutor.h"
+
+1498788405 /home/paca/SB_T2_Bruno/Tradutor/bibliotecas_tradutor.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"arquivos.h"
+	"scanner.h"
+
+1498786833 /home/paca/SB_T2_Bruno/Tradutor/arquivos.h
+
+1498785958 /home/paca/SB_T2_Bruno/Tradutor/scanner.h
+
+1498785898 source:/home/paca/SB_T2_Bruno/Tradutor/scanner.c
+	"bibliotecas_tradutor.h"
+

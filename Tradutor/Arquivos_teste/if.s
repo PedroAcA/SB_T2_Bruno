@@ -1,16 +1,16 @@
 section .data
-i1  equ 1
+i1  equ 0
 i2  equ 1
 global _start
 section .text
 _start:
-%ifn i1=0
+%if i1=1
 pusha
 mov ecx,[um]
 call EscreverInteiro
 popa
 %endif
-%ifn i2=0
+%if i2=1
 pusha
 mov ecx,[dois]
 call EscreverInteiro

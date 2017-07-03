@@ -1,0 +1,25 @@
+
+;Programa que transforma um número decimal
+;a binário
+SECTION TEXT
+
+S_INPUT texto,5
+S_OUTPUT texto,5
+
+INPUT NUMERO
+OUTPUT NUMERO
+
+C_INPUT CHAR
+C_OUTPUT CHAR
+
+H_INPUT HEXA
+H_OUTPUT HEXA
+
+STOP
+
+SECTION DATA
+
+texto: SPACE 10
+CHAR: SPACE
+NUMERO: SPACE 4
+HEXA: SPACE 4

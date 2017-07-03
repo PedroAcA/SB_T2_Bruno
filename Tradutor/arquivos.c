@@ -198,10 +198,12 @@ void imprime_funcoes(){
     fprintf(obj, "quociente db '0000'\n");
     fprintf(obj, "string db '000000000000'\n");
     fprintf(obj, "  \n");
+    fprintf(obj, "section .text\n");
+    fprintf(obj, "  \n");
     fprintf(obj, "LerChar:\n");
     fprintf(obj, "  mov eax, 3 ; ler\n");
     fprintf(obj, "  mov ebx, 1 ; teclado\n");
-    fprintf(obj, "  mov edx, 1\n");
+    fprintf(obj, "  mov edx, 2\n");
     fprintf(obj, "  int 0x80   ; ler(teclado, digitado, 1byte);\n");
     fprintf(obj, "\n");
     fprintf(obj, "  mov eax,ecx\n");

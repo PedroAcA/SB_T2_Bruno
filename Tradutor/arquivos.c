@@ -65,7 +65,7 @@ void escreve_rotulo(char *token){
     fprintf(obj,"%s ",token);
 }
 void escreve_if(char *tok){
-    fprintf(obj,"%%ifn %s=0\n",prox_token());
+    fprintf(obj,"%%if %s=1\n",prox_token());
 }
 void escreve_fecha_if(){
     fprintf(obj,"%%endif\n");

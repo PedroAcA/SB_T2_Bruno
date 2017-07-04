@@ -1,0 +1,8 @@
+Alunos:
+	Pedro Aurelio Coelho de Almeida (14/0158103)
+	Diego Brian Coelho Leite (14/0136371)
+Para montar o projeto do tradutor:
+	-> Navegue no terminal ate chegar a esta pasta (SB_T2_Bruno)
+	-> Digite no terminal make (ou make projeto)
+
+
